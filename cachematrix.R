@@ -28,6 +28,7 @@ cacheSolve <- function(x=matrix(), ...) {
       return(cachedMatrix)
     }
     matrix <- x$get() 
+ ## Some error handling
  tryCatch( {
                 # set and return inverse of matrix
                 cachedMatrix <- solve(matrix, ...)
@@ -35,19 +36,15 @@ cacheSolve <- function(x=matrix(), ...) {
         error = function(e) {
                 message("Error:")
                 message(e)
-
                 return(NA)
         },
         warning = function(w) {
                 message("Warning:")
                 message(w)
-
                 return(NA)
         },
         finally = {
-                # set inverted matrix in cache
                x$setmatrix(cachedMatrix)
-
         } )
         return(cachedMatrix)
 } 
